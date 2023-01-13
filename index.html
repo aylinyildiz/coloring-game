@@ -40,12 +40,10 @@
             fill="white" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
-    <div id="color-palette">
-
-    </div>
+    <div id="color-palette"></div>
+    <input id="picker" type="color" />
 
     <script>
-
         const colors = ["violet", "indigo", "blue", "green", "yellow", "orange", "red"];
 
         let selectedColor = "white";
@@ -59,11 +57,6 @@
             document.getElementById("color-palette").appendChild(newColor);
         }
 
-
-
-
-        // document.createElement("div");
-
         const items = document.getElementsByTagName("path");
 
         for (let i = 0; i < items.length; i++) {
@@ -72,10 +65,10 @@
             })
         }
 
+        document.getElementById("picker").addEventListener("change",function(e){
+            selectedColor = e.currentTarget.value;
+        })
 
-    // document.getElementById("rocket-body").addEventListener("click",function(e){
-    //     e.currentTarget.setAttribute("fill", "red");
-    // })
     </script>
 </body>
 
