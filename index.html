@@ -7,13 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coloring Game</title>
     <style>
-        #color-palette{
-            display: flex;
+        #selected {
+            width: 50px;
+            height: 50px;
+            border: 3px solid black;
+            border-radius: 50%;
         }
-        #color-palette >div{
+
+        #color-palette {
+            display: flex;
+            gap: 10px;
+        }
+
+        #color-palette>div {
             width: 40px;
             height: 40px;
-
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -40,33 +49,47 @@
             fill="white" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
+    <div id="selected"></div>
     <div id="color-palette"></div>
     <input id="picker" type="color" />
+    <button id="clear">Clear</button>
 
     <script>
         const colors = ["violet", "indigo", "blue", "green", "yellow", "orange", "red"];
 
         let selectedColor = "white";
 
+        function setColor(color) {
+            selectedColor = color;
+            document.getElementById("selected").style.backgroundColor = color;
+        }
+
         for (let i = 0; i < colors.length; i++) {
             const newColor = document.createElement("div");
             newColor.style.backgroundColor = colors[i];
-            newColor.addEventListener("click", function(e){
-                selectedColor = colors[i];
+            newColor.addEventListener("click", function (e) {
+                setColor(colors[i]);
             })
             document.getElementById("color-palette").appendChild(newColor);
         }
 
         const items = document.getElementsByTagName("path");
-
         for (let i = 0; i < items.length; i++) {
             items[i].addEventListener("click", function (e) {
                 e.currentTarget.setAttribute("fill", selectedColor)
             })
         }
 
-        document.getElementById("picker").addEventListener("change",function(e){
-            selectedColor = e.currentTarget.value;
+        //input color
+        document.getElementById("picker").addEventListener("change", function (e) {
+            setColor(e.currentTarget.value);
+        })
+
+        document.getElementById("clear").addEventListener("click", function(e){
+            const items = document.getElementsByTagName("path");
+        for (let i = 0; i < items.length; i++) {
+            items[i].setAttribute("fill", "white")
+        }
         })
 
     </script>
